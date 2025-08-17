@@ -1,9 +1,11 @@
-using System;
-using Microsoft.EntityFrameworkCore;
-using DisasterPredictionApi.Infrastructure.Data;
 using DisasterPredictionApi.Application;
 using DisasterPredictionApi.Infrastructure;
+using DisasterPredictionApi.Infrastructure.Data;
+using DisasterPredictionApi.Infrastructure.Repositories;
+using Microsoft.EntityFrameworkCore;
 using Npgsql.EntityFrameworkCore.PostgreSQL;
+using System;
+using DisasterPredictionApi.Application.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +19,11 @@ builder.Services.AddSwaggerGen();
 // Add DbContext
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+// Repositories + UoW
+builder.Services.AddScoped(typeof(IRepository<>), typeof(BaseRepository<>));
+builder.Services.AddScoped<IRegionRepository, RegionRepository>();
+
 
 
 var app = builder.Build();

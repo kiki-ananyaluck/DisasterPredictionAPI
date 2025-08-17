@@ -10,4 +10,8 @@
     <ProjectReference Include="..\DisasterPredictionApi.Domain\DisasterPredictionApi.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Services\" />
+  </ItemGroup>
+
 </Project>
